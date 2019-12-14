@@ -8,10 +8,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 function Reservation(id, name, phone, email) {
-    this.id = id;
-    this.name = name;
-    this.phone = phone;
-    this.email = email;
+  this.id = id;
+  this.name = name;
+  this.phone = phone;
+  this.email = email;
 }
 
 //6 routes
@@ -19,36 +19,43 @@ var tables = [];
 var waitlist = [];
 
 //GET home
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "home.html"));
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "home.html"));
 });
 
 //GET reservations
-app.get("/new.html", function (req, res) {
-    res.sendFile(path.join(__dirname, "new.html"));
+app.get("/new.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "new.html"));
 });
 
 //GET viewTables
-app.get("/tables.html", function (req, res) {
-    res.sendFile(path.join(__dirname, "tables.html"));
+app.get("/tables.html", function(req, res) {
+  res.sendFile(path.join(__dirname, "tables.html"));
 });
 
 //GET reservations [JSON]
-app.get("/api/tables", function (req, res) {
-    // tables.push(new Reservation(1, "Test", "555-5555", "nobody@email.com"));
-    return res.json(tables)
+app.get("/api/tables", function(req, res) {
+  // tables.push(new Reservation(1, "Test", "555-5555", "nobody@email.com"));
+  return res.json(tables);
 });
 
 //GET waitlist [JSON]
-app.get("/api/waitlist", function (req, res) {
-    return res.json(waitlist)
+app.get("/api/waitlist", function(req, res) {
+  return res.json(waitlist);
 });
 
 //POST makeReservation
-app.post("/api/makeReservation", function (req, res) {
-
+app.post("/api/makeReservation", function(req, res) {
+  tables.push(
+    new Reservation(
+      req.body.uniqueid,
+      req.body.name,
+      req.body.phoneno,
+      req.body.emailid
+    )
+  );
 });
 
-app.listen(PORT, function () {
-    console.log("Server listening on port " + PORT);
+app.listen(PORT, function() {
+  console.log("Server listening on port " + PORT);
 });
