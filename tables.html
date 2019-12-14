@@ -64,8 +64,23 @@
         </footer>
 
     </div>
+<script>
+$.get("/api/tables").done(function (data) {
+    data.forEach(reservation => {
+        $("#tableList").append(
+            `<li>${reservation.id} -- ${reservation.name} | ${reservation.phone} ${reservation.email}</li>`
+        )
+    })
+});
 
-</body>
+$.get("/api/waitlist").done(function(data) {
+    data.forEach(reservation => {
+        $("#waitList").append(
+            `<li>${reservation.id} -- ${reservation.name} | ${reservation.phone} ${reservation.email}</li>`
+        )
+    })
+})
+</script>
 </body>
 
 </html>
