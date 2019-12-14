@@ -46,18 +46,18 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="role">phone number</label>
-                  <input type="text" class="form-control" id="role" />
+                  <label for="phoneno">phone number</label>
+                  <input type="text" class="form-control" id="phoneno" />
                 </div>
 
                 <div class="form-group">
-                  <label for="age">email id </label>
-                  <input type="text" class="form-control" id="age" />
+                  <label for="emailid">email id </label>
+                  <input type="text" class="form-control" id="emailid" />
                 </div>
 
                 <div class="form-group">
-                  <label for="force-points">unique id</label>
-                  <input type="text" class="form-control" id="force-points" />
+                  <label for="uniqueid">unique id</label>
+                  <input type="text" class="form-control" id="uniqueid" />
                 </div>
               </form>
               <br />
@@ -80,25 +80,25 @@
       // Question: What does this code do?
       $("#add-btn").on("click", function(event) {
         event.preventDefault();
-        var newCharacter = {
+        var newReservation = {
           name: $("#name")
             .val()
             .trim(),
-          role: $("#role")
+          phoneno: $("#phoneno")
             .val()
             .trim(),
-          age: $("#age")
+          emailid: $("#emailid")
             .val()
             .trim(),
-          forcePoints: $("#force-points")
+          uniqueid: $("#uniqueid")
             .val()
             .trim()
         };
 
         // Question: What does this code do??
-        $.post("/api/characters", newCharacter).then(function(data) {
-          console.log("add.html", data);
-          alert("Adding character...");
+        $.post("/api/makeReservation", newReservation).then(function(data) {
+          console.log("new.html", data);
+          alert("new reservation is done...");
         });
       });
     </script>
