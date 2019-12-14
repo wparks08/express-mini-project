@@ -17,6 +17,7 @@ function Reservation(id, name, phone, email) {
 //6 routes
 var tables = [];
 var waitlist = [];
+const MAX_TABLES = 5;
 
 //GET home
 app.get("/", function(req, res) {
@@ -45,15 +46,20 @@ app.get("/api/waitlist", function(req, res) {
 });
 
 //POST makeReservation
-app.post("/api/makeReservation", function(req, res) {
-  tables.push(
-    new Reservation(
-      req.body.uniqueid,
-      req.body.name,
-      req.body.phoneno,
-      req.body.emailid
-    )
-  );
+app.post("/api/makeReservation", function (req, res) {
+    let reservation = new Reservation(
+        req.body.uniqueid,
+        req.body.name,
+        req.body.phoneno,
+        req.body.emailid
+    );
+    if (tables.length < MAX_TABLES) {
+        tables.push(reservation);
+        res.send(true);
+    } else {
+        waitlist.push(reservation);
+        res.send(false);
+    }
 });
 
 app.listen(PORT, function() {
