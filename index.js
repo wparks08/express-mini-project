@@ -7,7 +7,16 @@ var PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+function Reservation(id, name, phone, email) {
+    this.id = id;
+    this.name = name;
+    this.phone = phone;
+    this.email = email;
+}
+
 //6 routes
+var tables = [];
+var waitlist = [];
 
 //GET home
 app.get("/", function (req, res) {
@@ -20,25 +29,26 @@ app.get("/new.html", function (req, res) {
 });
 
 //GET viewTables
-app.get("/tables", function (req, res) {
+app.get("/tables.html", function (req, res) {
     res.sendFile(path.join(__dirname, "tables.html"));
 });
 
 //GET reservations [JSON]
-app.get("/api/reservations", function (req, res) {
-    return res.json({ debug: "in process" })
-})
+app.get("/api/tables", function (req, res) {
+    // tables.push(new Reservation(1, "Test", "555-5555", "nobody@email.com"));
+    return res.json(tables)
+});
 
 //GET waitlist [JSON]
 app.get("/api/waitlist", function (req, res) {
-    return res.json({ debug: "in process" })
-})
+    return res.json(waitlist)
+});
 
 //POST makeReservation
 app.post("/api/makeReservation", function (req, res) {
 
-})
+});
 
 app.listen(PORT, function () {
     console.log("Server listening on port " + PORT);
-})
+});
